@@ -10,10 +10,10 @@ Skills are installable with the [`skills` CLI](https://www.skills.sh/):
 
 ```bash
 # install everything in this repo
-npx skills add sehlceris/sehlceris-agent-skills
+npx skills add sehlceris/agent-skills
 
 # or pick a single skill
-npx skills add sehlceris/sehlceris-agent-skills/multi-agent-pr-review
+npx skills add sehlceris/agent-skills/multi-agent-pr-review
 ```
 
 This copies the skill(s) into your agent's skills directory (e.g. `.claude/skills/`).
