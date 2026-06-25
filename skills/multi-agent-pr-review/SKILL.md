@@ -14,7 +14,7 @@ Reviews are **static analysis only** — agents read diffs and surrounding code;
 ## Flow
 
 ```
-Workspace precondition satisfied (references/workspace.md)
+Review inputs available (references/inputs.md)
          │
          ▼
 Orchestrator ──▶ writes triage.md, dispatches specialists
@@ -46,7 +46,7 @@ Ownership: the orchestrator creates `triage.md` and the `findings/` directory an
 
 ## How to run
 
-1. **Verify** the workspace precondition — read `references/workspace.md`.
+1. **Confirm** the review inputs are available — read `references/inputs.md`.
 2. **Triage and dispatch** as the orchestrator — read `references/orchestrator.md`.
 3. **Review each lane** — each specialist reads `references/specialist.md`, reviews only its assigned lane, and writes `findings/NN-<lane>.md`.
 4. **Synthesize** — merge the reports into `handoff.md` — read `references/synthesizer.md`. Filled example in `assets/example-handoff.md`.
