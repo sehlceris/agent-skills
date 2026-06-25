@@ -5,58 +5,48 @@ description: Run a structured, analysis-only pull request review using an orches
 
 # Multi-Agent Pull Request Review
 
-An orchestrator coordinates several scoped specialist reviewers and a synthesizer to turn a PR diff into a single prioritized list of suggested improvements. The list is structured for handoff: a human project lead marks each item fix or won't-fix and optionally steers it, then a fix orchestrator acts on the approved items.
+An orchestrator coordinates scoped specialist reviewers and a synthesizer to turn a PR diff into one prioritized list of suggested improvements, structured for handoff: a project lead marks each item fix or won't-fix, then a fix orchestrator acts on the approved items.
 
-Each role owns one thing. The orchestrator plans and dispatches. Specialists investigate a narrow lane. The synthesizer merges and prioritizes. A human project lead decides what to act on, defer, or dismiss. Do not collapse roles — when dispatch is possible, the orchestrator dispatches rather than reviewing itself.
+Each role owns one thing — the orchestrator plans and dispatches, each specialist investigates one narrow lane, the synthesizer merges and prioritizes. Don't collapse roles: when dispatch is possible, the orchestrator dispatches rather than reviewing itself.
 
-Reviews are **static analysis only**: agents read diffs and surrounding code. They do not run the application, execute tests, or reproduce CI failures.
+Reviews are **static analysis only** — agents read diffs and surrounding code; they do not run the app, execute tests, or reproduce CI.
 
 ## Flow
 
 ```
-Workspace satisfies the precondition (see below)
+Workspace precondition satisfied (references/workspace.md)
          │
          ▼
-Orchestrator (triage + dispatch)
+Orchestrator ──▶ writes triage.md, dispatches specialists
          │
-         ├──▶ Specialist A ──▶ findings report
-         ├──▶ Specialist B ──▶ findings report
-         └──▶ Specialist C ──▶ findings report
-         │
-         ▼
-Synthesizer (merge + prioritize)
+         ├──▶ Specialist A ──▶ findings/01-<lane>.md
+         ├──▶ Specialist B ──▶ findings/02-<lane>.md
+         └──▶ Specialist C ──▶ findings/03-<lane>.md
          │
          ▼
-Prioritized improvement list  ──▶  project lead triage  ──▶  fix orchestrator
+Synthesizer ──▶ reads triage.md + findings/*.md ──▶ writes handoff.md
+         │
+         ▼
+project lead triage ──▶ fix orchestrator
 ```
 
-## Workspace precondition
+## Review folder
 
-This skill reviews two checkouts. It does **not** create them — how they come to exist depends on the host repository (CI checkout, fresh clone, local worktrees) and is out of scope here. A repository may supply a supplemental skill that produces them; otherwise the caller produces them by hand. Either way, before review begins the following must hold:
+The project lead specifies a review folder. All roles read and write inside it using this fixed layout — this *is* the handoff mechanism, so every role knows where its inputs and outputs live without being told per-run:
 
-1. A **head** checkout exists — the PR branch's code.
-2. A **base** checkout exists at the **merge-base** of head and the target branch — *not* the target branch's current tip. Using the tip pulls in unrelated commits landed after the PR branched and pollutes the diff with changes the PR did not make.
-3. A **diff inventory** derived from those two checkouts is available (changed files and per-file patches).
-4. The agents know where all three are. The mechanism (paths, env vars, a manifest — whatever the setup used) is not dictated here.
-
-Before spending tokens on review, validate the contract on whatever paths you were given:
-
-```bash
-scripts/verify_workspace.sh <base_path> <head_path> <diff_inventory_path>
+```
+<review_dir>/
+  triage.md            # orchestrator: PR sizing, roster, per-specialist assignment contracts
+  findings/
+    NN-<lane>.md       # one report per specialist; NN is a zero-padded id (01-correctness.md)
+  handoff.md           # synthesizer: the final prioritized improvement list
 ```
 
-It confirms both checkouts exist, that base is an ancestor of head (catching the target-tip mistake), and that the inventory is present and non-empty. If it fails, stop and report — do not review an unverified workspace.
+Ownership: the orchestrator creates `triage.md` and the `findings/` directory and assigns each specialist its `findings/NN-<lane>.md` path; each specialist writes only its own file; the synthesizer reads `triage.md` plus every `findings/*.md` and writes `handoff.md`. Treat existing files as inputs — don't clobber another role's file.
 
-## How to run a review
+## How to run
 
-1. **Verify** the workspace precondition (above).
-2. **Triage and dispatch** — act as the orchestrator. Read `references/orchestrator.md`.
-3. **Review each lane** — each specialist reads `references/specialist.md`, reviews only its assigned lane and scope, and writes a findings report.
-4. **Synthesize** — merge the reports into the prioritized handoff list. Read `references/synthesizer.md`. The exact item shape and the fix/won't-fix semantics live there; a short filled example is in `assets/example-handoff.md`.
-
-## References
-
-- `references/orchestrator.md` — triage, PR-size→specialist-count, clustering, assignment contracts. Read when acting as the orchestrator.
-- `references/specialist.md` — review lanes and the findings-report contract. Read when acting as a specialist.
-- `references/synthesizer.md` — synthesis steps, the handoff item shape, fix/won't-fix and lead-comment semantics. Read when acting as the synthesizer.
-- `assets/example-handoff.md` — a short, high-signal example of the output artifact. Match its tone: concise, high-signal, enough context to act without re-explaining the obvious.
+1. **Verify** the workspace precondition — read `references/workspace.md`.
+2. **Triage and dispatch** as the orchestrator — read `references/orchestrator.md`.
+3. **Review each lane** — each specialist reads `references/specialist.md`, reviews only its assigned lane, and writes `findings/NN-<lane>.md`.
+4. **Synthesize** — merge the reports into `handoff.md` — read `references/synthesizer.md`. Filled example in `assets/example-handoff.md`.

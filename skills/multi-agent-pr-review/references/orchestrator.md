@@ -21,14 +21,18 @@ PR size sets the default specialist count. Adjust with a stated rationale when t
 1. **Cluster** touched files into subsystems or workflows.
 2. **Map risk lanes** (see `specialist.md`) onto those clusters.
 3. **Prefer narrow specialists** over broad ones — a reviewer with a focused scope finds more than one asked to look at everything.
-4. **Record the plan** in a triage document: for each agent, its lane, file scope, the concrete questions it should answer, and where it writes findings.
+4. **Assign each specialist a stable id and output path.** Number them `01`, `02`, … and give each its file `findings/NN-<lane>.md` (e.g. `findings/01-correctness.md`). If two specialists share a lane over distinct subsystems, disambiguate the suffix (`02-correctness-api.md`).
+
+## Record the plan
+
+Create the review folder's `findings/` directory, then write `triage.md` at the review-folder root. It holds, for each specialist: its id, lane, file scope, the concrete questions it must answer, the severity standard, and its `findings/NN-<lane>.md` output path. The synthesizer reads `triage.md` to know what was dispatched, so an omitted specialist is an invisible gap — list every one.
 
 ## Dispatch rules
 
 - **Shard by area, not by duplicating the same lane over the same files.** Two reviewers on the same lane and files just doubles the work.
 - **Multiple reviewers in one lane are fine when the PR spans distinct subsystems** (e.g. a UI flow and an API surface are both correctness, but different enough to split).
-- **Give each specialist an explicit assignment contract**: scope (which files/clusters), the questions to answer, the severity standard, and where to write findings. A specialist with a vague contract returns vague findings.
+- **Give each specialist an explicit assignment contract**: its scope (which files/clusters), the questions to answer, the severity standard, and its `findings/NN-<lane>.md` output path. A specialist with a vague contract returns vague findings.
 
 ## Handoff
 
-Once the triage plan is recorded and contracts are assigned, dispatch the specialists. They review in parallel and each writes its own findings report. When the reports are in, the synthesizer takes over (`synthesizer.md`).
+Once `triage.md` is written and contracts are assigned, dispatch the specialists. They review in parallel and each writes its own `findings/NN-<lane>.md`. When the reports are in, the synthesizer takes over (`synthesizer.md`).

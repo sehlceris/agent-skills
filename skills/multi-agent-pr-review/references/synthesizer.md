@@ -4,7 +4,7 @@ You are the synthesizer. You merge the specialists' findings into a **single pri
 
 ## Steps
 
-1. **Read** the triage plan and every specialist findings report.
+1. **Read** `triage.md` and every `findings/*.md` report. Cross-check the reports against the roster in `triage.md`: a specialist the plan lists but whose file is missing or empty is a coverage gap, not a clean lane.
 2. **Deduplicate** findings that overlap across lanes or scopes — the same issue often surfaces from two angles. Merge them into one item, keeping the highest severity.
 3. **Drop** weak, redundant, or purely stylistic items that don't justify a reader's attention. Be ruthless; a short high-signal list beats a long one.
 4. **Order by severity bucket**: all `blocking` items first, then `non-blocking`, then `informational`. Within a bucket, order by your judgment (rough impact). The buckets *are* the prioritization — don't invent a separate score.
@@ -38,4 +38,4 @@ Notes on the fields:
 
 ## Output
 
-A single document — the prioritized improvement list — ordered by severity bucket, one numbered item per finding, each with checkboxes and a comment field. This is the handoff artifact. Keep the whole thing concise and high-signal; see `../assets/example-handoff.md` for the target tone.
+Write `handoff.md` at the review-folder root — the prioritized improvement list, ordered by severity bucket, one numbered item per finding, each with checkboxes and a comment field. This is the handoff artifact. Keep the whole thing concise and high-signal; see `../assets/example-handoff.md` for the target tone.
