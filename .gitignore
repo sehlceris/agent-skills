@@ -10,7 +10,9 @@ node_modules/
 npm-debug.log*
 .npm/
 
-# Local agent / scratch state
+# Local / scratch state
 .claude/
 *.local
+local/
+.local/
 scratchpad/
