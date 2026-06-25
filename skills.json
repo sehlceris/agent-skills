@@ -1,0 +1,12 @@
+{
+  "name": "sehlceris-agent-skills",
+  "description": "Personal collection of generalizable agent skills.",
+  "owner": "sehlceris",
+  "skills": [
+    {
+      "name": "multi-agent-pr-review",
+      "path": "skills/multi-agent-pr-review",
+      "description": "Structured, analysis-only PR review run as an orchestrator, scoped specialist reviewers, and a synthesizer, producing one prioritized fix/won't-fix handoff list."
+    }
+  ]
+}
