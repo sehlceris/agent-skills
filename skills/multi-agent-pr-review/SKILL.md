@@ -1,6 +1,6 @@
 ---
 name: multi-agent-pr-review
-description: Run a structured, analysis-only pull request review using an orchestrator, several scoped specialist reviewers, and a synthesizer. The synthesizer emits a single prioritized list of suggested improvements ready to hand off to a fix orchestrator. Use this whenever the user wants to review a PR, diff, or branch in depth — especially when they mention multi-agent review, splitting a review across reviewers, prioritizing review findings, or producing a fix/wontfix handoff. Trigger even if the user just says "review this PR thoroughly" without naming the process.
+description: Run a structured, analysis-only pull request review using an orchestrator, several scoped specialist reviewers, and a synthesizer.
 ---
 
 # Multi-Agent Pull Request Review
