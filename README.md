@@ -20,8 +20,8 @@ This copies the skill(s) into your agent's skills directory (e.g. `.claude/skill
 
 ## Skills
 
-| Skill | Description |
-| --- | --- |
+| Skill                                                    | Description                                                                                                                                                   |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`multi-agent-pr-review`](skills/multi-agent-pr-review/) | Structured, analysis-only PR review run as an orchestrator → scoped specialist reviewers → synthesizer, producing one prioritized fix/won't-fix handoff list. |
 
 ## Repository layout
@@ -36,6 +36,27 @@ skills/
 ```
 
 The `skills` CLI walks the `skills/` directory to discover each `SKILL.md`; no root manifest is required.
+
+## Development
+
+Skills are mostly Markdown, but the repo is set up for the helper scripts (shell today; TS/JS/Python later) that skills may ship.
+
+```bash
+pnpm install        # installs dev tooling + sets up the git pre-commit hook
+pnpm format         # Prettier — format Markdown, JSON, YAML, JS/TS
+pnpm format:check   # verify formatting (run in CI)
+pnpm type-check     # tsc --noEmit over any TS/JS scripts (no-op until they exist)
+pnpm lint:sh        # ShellCheck over skills/**/*.sh (needs shellcheck installed)
+```
+
+Tooling:
+
+- **Prettier** — formatting for Markdown / JSON / YAML / JS / TS (`.prettierrc.json`).
+- **Husky + lint-staged** — a pre-commit hook formats staged files automatically.
+- **TypeScript** — `tsconfig.json` is ready for typed scripts (run via `tsx` / `node --experimental-strip-types`).
+- **Ruff** — `pyproject.toml` configures lint + format for future Python scripts (`uvx ruff check .`).
+- **ShellCheck** — lints shell scripts; runs in CI.
+- **GitHub Actions** — `.github/workflows/ci.yml` runs Prettier, type-check, and ShellCheck on every PR.
 
 ## License
 

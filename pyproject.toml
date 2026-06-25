@@ -1,0 +1,16 @@
+# Python tooling config, ready for when skills ship Python scripts.
+# Lint + format with Ruff:  uvx ruff check .   and   uvx ruff format .
+# (No Python dependencies are declared here; this is config-only.)
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["local"]
+
+[tool.ruff.lint]
+# A sensible default set: pyflakes (F), pycodestyle (E/W), isort (I),
+# pyupgrade (UP), flake8-bugbear (B), and comprehensions (C4).
+select = ["E", "W", "F", "I", "UP", "B", "C4"]
+
+[tool.ruff.format]
+quote-style = "double"

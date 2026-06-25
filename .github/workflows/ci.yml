@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  format-and-types:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Prettier
+        run: pnpm format:check
+
+      - name: Type check
+        run: pnpm type-check
+
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ShellCheck skill scripts
+        run: |
+          shopt -s globstar nullglob
+          files=(skills/**/*.sh)
+          if [ ${#files[@]} -eq 0 ]; then
+            echo "No shell scripts to check."
+            exit 0
+          fi
+          shellcheck "${files[@]}"

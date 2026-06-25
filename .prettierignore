@@ -1,0 +1,10 @@
+# Vendored: the upstream skills CLI repo, cloned for reference only
+local/
+
+# Generated / vendored
+node_modules/
+dist/
+pnpm-lock.yaml
+
+# Don't reformat shell scripts (Prettier doesn't handle them; use shfmt/shellcheck)
+*.sh

@@ -10,11 +10,11 @@ Read the PR summary, any project-lead notes (focus areas, validation expectation
 
 PR size sets the default specialist count. Adjust with a stated rationale when the change's risk doesn't match its size (a tiny diff to auth logic can warrant more; a huge mechanical rename can warrant fewer).
 
-| Size | Typical scope | Specialists |
-|------|---------------|-------------|
-| Small | <10 files, <400 lines | 2–3 |
-| Medium | 10–40 files or 400–1500 lines | 3–4 |
-| Large | >40 files or >1500 lines | 4–7 |
+| Size   | Typical scope                 | Specialists |
+| ------ | ----------------------------- | ----------- |
+| Small  | <10 files, <400 lines         | 2–3         |
+| Medium | 10–40 files or 400–1500 lines | 3–4         |
+| Large  | >40 files or >1500 lines      | 4–7         |
 
 ## Plan the roster
 

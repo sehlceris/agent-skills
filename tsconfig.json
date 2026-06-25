@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    // Environment & language features
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "moduleDetection": "force",
+    "allowJs": true,
+    "checkJs": true,
+
+    // Node-style execution (tsx / node --experimental-strip-types)
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+
+    // Strictness
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true
+  },
+  "include": ["skills/**/*.ts", "skills/**/*.js", "scripts/**/*.ts", "scripts/**/*.js"],
+  "exclude": ["node_modules", "dist", "local"]
+}

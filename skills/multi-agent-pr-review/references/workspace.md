@@ -7,7 +7,7 @@ Two things must be in place before review begins: the **review folder** (where r
 This skill reviews two checkouts plus a diff inventory. It does **not** create them — how they come to exist depends on the host (CI checkout, fresh clone, local worktrees) and is out of scope. A repository may supply a supplemental skill that produces them; otherwise the project lead produces them by hand. Either way, before review the following must hold:
 
 1. A **head** checkout exists — the PR branch's code.
-2. A **base** checkout exists at the **merge-base** of head and the target branch — *not* the target branch's current tip. Using the tip pulls in unrelated commits landed after the PR branched and pollutes the diff with changes the PR did not make.
+2. A **base** checkout exists at the **merge-base** of head and the target branch — _not_ the target branch's current tip. Using the tip pulls in unrelated commits landed after the PR branched and pollutes the diff with changes the PR did not make.
 3. A **diff inventory** derived from those two checkouts is available (changed files and per-file patches).
 4. The agents know where all three are. The mechanism (paths, env vars, a manifest — whatever the setup used) is not dictated here.
 

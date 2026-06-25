@@ -32,7 +32,7 @@ project lead triage ──▶ fix orchestrator
 
 ## Review folder
 
-The project lead specifies a review folder. All roles read and write inside it using this fixed layout — this *is* the handoff mechanism, so every role knows where its inputs and outputs live without being told per-run:
+The project lead specifies a review folder. All roles read and write inside it using this fixed layout — this _is_ the handoff mechanism, so every role knows where its inputs and outputs live without being told per-run:
 
 ```
 <review_dir>/

@@ -5,10 +5,20 @@ Thumbs.db
 .idea/
 .vscode/
 
-# Node (skills CLI scratch)
+# Node
 node_modules/
 npm-debug.log*
 .npm/
+dist/
+*.tsbuildinfo
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
 
 # Local / scratch state
 .claude/

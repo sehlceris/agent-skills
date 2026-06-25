@@ -1,0 +1,28 @@
+{
+  "name": "sehlceris-agent-skills",
+  "version": "0.0.0",
+  "description": "A personal collection of generalizable agent skills.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:sh": "find skills -name '*.sh' -type f -print0 | xargs -0 -r shellcheck",
+    "type-check": "node scripts/type-check.mjs",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{md,json,jsonc,yml,yaml,js,mjs,cjs,ts,mts,cts}": "prettier --write"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@11.4.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
+  }
+}
